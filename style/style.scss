@@ -1,0 +1,85 @@
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+  
+}
+body {
+  background: rgb(223,49,49);
+  background: radial-gradient(circle, rgba(223,49,49,1) 0%, rgba(255,255,255,1) 63%);
+}
+
+
+header {
+  margin: 3rem 0;
+  h1 {
+    text-align:center;
+  }
+}
+main {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+form {
+  border:0.3px solid gray;
+  box-shadow: 0px 8px 35px rgba(248, 187, 250, 0.16);
+  border-radius: 16px;
+  background-color:#ffffff;
+  padding:1rem;
+
+  #add-case {
+    background-color:#c8c8c8;   
+    border:none;
+    padding:0.5rem;
+    width:20rem;
+    border-radius: 0.4rem;
+
+    &:focus-visible {
+      outline:none;
+    }
+  }
+  button {
+    padding:0.5rem;
+    border:none;
+    border-radius: 0.4rem;  
+    cursor:pointer;
+  }
+  #add-btn {
+    width:5rem;
+    background-color:#116f84;
+    color:white;
+  }
+  hr {
+    border:0.2px solid rgba(132, 132, 132, 0.3);
+    margin:1.3rem 0 1.5rem;
+  }
+  #done {
+    width:1rem;
+    height:1rem;
+  }
+  label {
+    display: inline-block;
+    width:18.6rem;
+    height: 0.88rem;
+    border-radius: 0.1rem;
+    background-color:#e7e7e7;
+    padding:0.1rem 0.3rem 0.2rem;
+    font-size:1rem;
+  }
+  #del-btn {
+    font-size: 0.99rem;
+    background:transparent;
+    border:none;
+  }
+  #del-done-btn {
+    width:10rem;
+    background-color:#e37678;
+  }
+  #del-all-btn {
+    width:7rem;
+    background-color:#cd1818;
+  }  
+}
