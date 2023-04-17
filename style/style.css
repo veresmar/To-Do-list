@@ -30,14 +30,14 @@ form {
   background-color: #ffffff;
   padding: 1rem;
 }
-form #add-case {
+form #add-task {
   background-color: #c8c8c8;
   border: none;
   padding: 0.5rem;
   width: 20rem;
   border-radius: 0.4rem;
 }
-form #add-case:focus-visible {
+form #add-task:focus-visible {
   outline: none;
 }
 form button {
