@@ -13,13 +13,15 @@
       <h1>ToDo List</h1>
     </header>
     <main>
-      <form action="#">
+      <form action="#" id='form'>
         <input type="text" name="add-task" id="add-task" placeholder="what do u wanna do today?" value=''>
         <button id='add-btn'>Add</button>
         <hr>
-        <input type="checkbox" name="todo" id="done">
-        <label for="done">buy coffee</label>
-        <button id='del-btn'>❌</button><br>
+        <div id="task-container">
+          <input type="checkbox" name="todo" id="done" class='done'>
+          <label for="done">buy coffee</label>
+          <button id='del-btn' class='del-btn'>❌</button><br>
+        </div>
         <hr>
         <button id="del-done-btn">Delete what u done</button>
         <button id="del-all-btn">Delete all</button>
