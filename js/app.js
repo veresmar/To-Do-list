@@ -10,8 +10,7 @@ const deleteAll = document.getElementById('del-all-btn');
 // fetch("http://24api.ru/rest-user", {
 //     "method": "GET"
 // })
-//     .then(data => data.json())
-//     .then(data => console.log(data))
+
 
 // Создание пользователя
 const user = {
@@ -31,37 +30,32 @@ fetch("http://24api.ru/rest-user", {
     },
     body: JSON.stringify(user)
 })
-    .then(data => console.log(data))
+    .then(data => data.json())
+    .then(data => user.id = data.id)
 
 
 // Создание задачи
+// (перенесла в 65 строку)
 
-const user1 =  {
-  "id": null,
-  "name": `${addTaskString.value}`,
-  "isDone": 1,
-  "user_id": 26
-}
-
-fetch("http://24api.ru/rest-todo", {
-    method: "POST",
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user1)
-})
-    .then(data => console.log(data))
+// fetch("http://24api.ru/rest-todo", {
+//     method: "POST",
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(task)
+// })
+//     .then(data => console.log(data))
     // .then(data => createNewTask(data))
 
 
 // Удаление одной задачи
 
-// fetch("http://24api.ru/rest-todo/26", {
+// fetch("http://24api.ru/rest-todo/", {
 //     method: "DELETE",
 //     headers: {
 //         'Content-Type': 'application/json'
 //     },
-//     body: JSON.stringify(user1)
+//     body: JSON.stringify(task)
 // })
 //     .then(data => console.log(data))
 
@@ -70,7 +64,16 @@ fetch("http://24api.ru/rest-todo", {
 
 // Создание задачи
 
-addTaskBtn.addEventListener('click', function f1() {
+addTaskBtn.addEventListener('click', function f1(event) {
+  event.preventDefault()
+
+  const task =  {
+    "id": null,
+    "name": `${addTaskString.value}`,
+    "isDone": 1,
+    "user_id": user.id,
+  }
+
   if (addTaskString.value.length == 0){
     addTaskString.value = 'please add some task';
   }
@@ -80,29 +83,30 @@ addTaskBtn.addEventListener('click', function f1() {
     headers: {
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify(user1)
+    body: JSON.stringify(task)
 })
     .then(data => console.log(data))
   }
 })
 
 //получение инфо о задаче
-const task =  {
-  "id": null,
-  "name": `${addTaskString.value}`,
-  "isDone": 1,
-  "user_id": 26
-}
+// const taskInfo =  {
+//   "id": null,
+//   "name": `${addTaskString.value}`,
+//   "isDone": 1,
+//   "user_id": user.id
+// }
 
-fetch("http://24api.ru/rest-todo/26", {
-    method: "GET",
-    headers: {
-        'Content-Type': 'application/json'
-    }
-    // body: JSON.stringify(user1)
-})
-    .then(data => console.log(data))
-
+// fetch("http://24api.ru/rest-todo/26", {
+//     method: "GET",
+//     headers: {
+//         'Content-Type': 'application/json'
+//     }
+//     // body: JSON.stringify(task)
+// })
+    // .then(data => console.log(data))
+    // .then(data => data.json())
+    // .then(data => id = data.id)
 
 // Удаление задачи
 
@@ -112,7 +116,7 @@ fetch("http://24api.ru/rest-todo/26", {
 //     headers: {
 //         'Content-Type': 'application/json'
 //     },
-//     body: JSON.stringify(user1)
+//     body: JSON.stringify(task)
 // })
 //     .then(data => console.log(data))
 
