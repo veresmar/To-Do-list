@@ -2,21 +2,13 @@ const addTaskString = document.getElementById('add-task');
 const addTaskBtn = document.getElementById('add-btn');
 const doneCheck = document.getElementById('done');
 const deleteX = document.getElementById('del-btn');
-const deleteDone = document.getElementById('del-done-btn');
+const deleteTask = document.getElementById('del-done-btn');
 const deleteAll = document.getElementById('del-all-btn');
-const USER_ID = 141
-
-// получение инфо о пользователе (?)
-// fetch("http://24api.ru/rest-user", {
-//     "method": "GET"
-// })
+const USER_ID = 141;
+const TASK_ID = 103;
 
 
-// Создание задачи
-// (перенесла в 65 строку)
-
-
-//получение задач пользователя
+//получение всех задач пользователя
 const showTasks = {
   "id": null,
   "name": "Название задачи",
@@ -26,33 +18,17 @@ const showTasks = {
   "user_id": USER_ID,
 }
 
-fetch("http://24api.ru/rest-todo/141", {
+fetch("http://24api.ru/rest-todo/items-by-id?id=141", {
     method: "GET",
     headers: {
         'Content-Type': 'application/json'
     },
-    // body: JSON.stringify(showTasks)
 })
     .then(data => data.json())
     .then(data => console.log(data))
 
 
-// Удаление одной задачи
-
-// fetch("http://24api.ru/rest-todo/", {
-//     method: "DELETE",
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(task)
-// })
-//     .then(data => console.log(data))
-
-
-
-
 // Создание задачи
-
 addTaskBtn.addEventListener('click', function (event) {
   event.preventDefault()
 
@@ -68,18 +44,19 @@ addTaskBtn.addEventListener('click', function (event) {
   }
   else {
     fetch("http://24api.ru/rest-todo", {
-    method: "POST",
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(task)
-})
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(task)
+    })
     .then(data => data.json())
     .then(data => {
         console.log(data)
         createNewTask(data)
     })
     }
+    addTaskString.value = ''
 })
 
 //получение инфо о задаче
@@ -101,10 +78,46 @@ addTaskBtn.addEventListener('click', function (event) {
     // .then(data => data.json())
     // .then(data => id = data.id)
 
-// Удаление задачи
 
-// deleteX.addEventListener('click'()=> {
-//   fetch("http://24api.ru/rest-todo/", {
+// Удаление одной задачи 
+// Task ID всегда разный, какой писать?? 
+window.addEventListener("DOMContentLoaded", (event) => {
+  
+  if (deleteX) {
+
+    deleteX.addEventListener('click', function (event){  
+      const task =  {
+        "id": TASK_ID,
+        "name": `${addTaskString.value}`,
+        "isDone": 1,
+        "user_id": USER_ID,
+      }
+    
+      fetch("http://24api.ru/rest-todo/103", {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(task)
+        })
+        
+        .then(data => data.json())
+        .then(data => {
+            console.log(data)
+          })
+          createNewTask.remove()
+    })
+  } // if END
+
+
+}) //window.addEventListener END
+
+
+
+
+// Удаление одной задачи
+
+// fetch("http://24api.ru/rest-todo/", {
 //     method: "DELETE",
 //     headers: {
 //         'Content-Type': 'application/json'
@@ -113,22 +126,37 @@ addTaskBtn.addEventListener('click', function (event) {
 // })
 //     .then(data => console.log(data))
 
-// })
 
-
+// Отрисовка задачи
 function createNewTask(objectTask){
-  const newTask = document.createElement('input');
-  newTask.type = 'checkbox';
-  newTask.className = 'done';
-  const newTaskText = document.createElement('label');
-  newTaskText.innerText = objectTask.name;
-  // newTaskText.className = 'done';
+  // создаем лейбл (обернуть инпут)
+  const newTask = document.createElement('label');
+  // инпут чекбокс (сделано/не сделано)
+  const isDone = document.createElement('input');
+  isDone.type = 'checkbox';
+  isDone.className = 'done';
+  // спан (в нем текст задания)
+  const textTask = document.createElement('span');
+  textTask.innerHTML = objectTask.name;
+  // кнопка для удаления
   const deleteX = document.createElement('button');
   deleteX.innerHTML = '❌';
   deleteX.className = 'del-btn';
-  const taskWrapper = document.getElementById('task-container');
-  taskWrapper.append(newTask, newTaskText, deleteX)
-  // deleteX.addEventListener('click', function (event)
-  // {newTaskText.remove})
+  // удаление задания по клику
+  // deleteX.addEventListener('click', function (event) {
+  //   taskW.remove();
+  // })
+  // обертка для одной задачи
+  const taskW = document.createElement('div');
+  taskW.className = 'task';
+  // контейнер для всех задач
+  const taskC = document.getElementById('task-container'); 
+  // что куда вкладываем: 
+  newTask.append(isDone, textTask)
+  taskW.append(newTask, deleteX)
+  taskC.append(taskW)
 }
+
+
+  
 
